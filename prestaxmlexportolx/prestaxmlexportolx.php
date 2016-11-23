@@ -28,6 +28,8 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
+require 'classes/OlxStartUpConfigs.php';
+
 class Prestaxmlexportolx extends Module
 {
     protected $config_form = false;
@@ -87,12 +89,13 @@ class Prestaxmlexportolx extends Module
         /**
          * If values have been submitted in the form, process.
          */
-        if (((bool)Tools::isSubmit('submitPrestaxmlexportolxModule')) == true) {
+        if (Tools::isSubmit('submitPrestaxmlexportolxModule')) {
             $this->postProcess();
         }
 
-        $this->context->smarty->assign('module_dir', $this->_path);
+        $this->assignConfiguration();
 
+        $this->context->smarty->assign('module_dir', $this->_path);
         $output = $this->context->smarty->fetch($this->local_path.'views/templates/admin/configure.tpl');
 
         return $output;
@@ -179,14 +182,30 @@ class Prestaxmlexportolx extends Module
     }
 
     /**
-     * Set values for the inputs.
+     * Get values from database.
+     */
+    protected function getConfigDefaultValues()
+    {
+        return array(
+            'PRESTA_XML_EXPORT_OLX_REGION' => Configuration::get('PRESTA_XML_EXPORT_OLX_REGION'),
+            'PRESTA_XML_EXPORT_OLX_CITY' => Configuration::get('PRESTA_XML_EXPORT_OLX_CITY'),
+            'PRESTA_XML_EXPORT_OLX_LATITUDE' => Configuration::get('PRESTA_XML_EXPORT_OLX_LATITUDE'),
+            'PRESTA_XML_EXPORT_OLX_LONGITUDE' => Configuration::get('PRESTA_XML_EXPORT_OLX_LONGITUDE'),
+            'PRESTA_XML_EXPORT_OLX_ZOOM' => Configuration::get('PRESTA_XML_EXPORT_OLX_ZOOM'),
+        );
+    }
+
+    /**
+     * Get values from form.
      */
     protected function getConfigFormValues()
     {
         return array(
-            'PRESTAXMLEXPORTOLX_LIVE_MODE' => Configuration::get('PRESTAXMLEXPORTOLX_LIVE_MODE', true),
-            'PRESTAXMLEXPORTOLX_ACCOUNT_EMAIL' => Configuration::get('PRESTAXMLEXPORTOLX_ACCOUNT_EMAIL', 'contact@prestashop.com'),
-            'PRESTAXMLEXPORTOLX_ACCOUNT_PASSWORD' => Configuration::get('PRESTAXMLEXPORTOLX_ACCOUNT_PASSWORD', null),
+            'PRESTA_XML_EXPORT_OLX_REGION' => Tools::getValue('PRESTA_XML_EXPORT_OLX_REGION'),
+            'PRESTA_XML_EXPORT_OLX_CITY' => Tools::getValue('PRESTA_XML_EXPORT_OLX_CITY'),
+            'PRESTA_XML_EXPORT_OLX_LATITUDE' => Tools::getValue('PRESTA_XML_EXPORT_OLX_LATITUDE'),
+            'PRESTA_XML_EXPORT_OLX_LONGITUDE' => Tools::getValue('PRESTA_XML_EXPORT_OLX_LONGITUDE'),
+            'PRESTA_XML_EXPORT_OLX_ZOOM' => Tools::getValue('PRESTA_XML_EXPORT_OLX_ZOOM'),
         );
     }
 
@@ -200,6 +219,21 @@ class Prestaxmlexportolx extends Module
         foreach (array_keys($form_values) as $key) {
             Configuration::updateValue($key, Tools::getValue($key));
         }
+    }
+
+    /**
+     * Load data to form
+     */
+    public function assignConfiguration()
+    {
+        $values = $this->getConfigDefaultValues();
+
+        foreach ($values as $key => $value) {
+            $this->context->smarty->assign($key, $value);
+        }
+
+        $regions = OlxStartConfigs::getRegions();
+        $this->context->smarty->assign('PRESTA_XML_EXPORT_OLX_REGIONS', $regions);
     }
 
     /**

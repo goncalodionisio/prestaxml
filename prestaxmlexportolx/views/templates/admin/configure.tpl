@@ -38,28 +38,103 @@
 
 	<div class="moduleconfig-content">
 		<div class="row">
-			<div class="col-xs-12">
-				<p>
-					<h4>{l s='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor' mod='prestaxmlexportolx'}</h4>
-					<ul class="ul-spaced">
-						<li><strong>{l s='Lorem ipsum dolor sit amet' mod='prestaxmlexportolx'}</strong></li>
-						<li>{l s='Lorem ipsum dolor sit amet' mod='prestaxmlexportolx'}</li>
-						<li>{l s='Lorem ipsum dolor sit amet' mod='prestaxmlexportolx'}</li>
-						<li>{l s='Lorem ipsum dolor sit amet' mod='prestaxmlexportolx'}</li>
-						<li>{l s='Lorem ipsum dolor sit amet' mod='prestaxmlexportolx'}</li>
-					</ul>
-				</p>
+			<div class="col-lg-12">
+				<div class="col-lg-4">
 
-				<br />
+					<form action="" method="post" id="olxStartupContent">
+						<fieldset>
+							<legend>{l s='Configurations' mod='prestaxmlexportolx'}:</legend>
 
-				<p class="text-center">
-					<strong>
-						<a href="http://www.prestashop.com" target="_blank" title="Lorem ipsum dolor">
-							{l s='Lorem ipsum dolor' mod='prestaxmlexportolx' }
-						</a>
-					</strong>
-				</p>
+                            <div class="form-group col-lg-12">
+                                <label for="PRESTA_XML_EXPORT_OLX_REGION">{l s='Region' mod='prestaxmlexportolx'}:</label>
+                                <select id="PRESTA_XML_EXPORT_OLX_REGION" name="PRESTA_XML_EXPORT_OLX_REGION">
+                                    {foreach from=$PRESTA_XML_EXPORT_OLX_REGIONS item=region}
+                                        <option value="{$region['id']}" {if $region['id'] == $PRESTA_XML_EXPORT_OLX_REGION}selected="selected"{/if}>{$region['name']}</option>
+                                    {/foreach}
+                                </select>
+                            </div>
+
+                            <div class="form-group col-lg-12">
+                                <label for="PRESTA_XML_EXPORT_OLX_CITY">{l s='City' mod='prestaxmlexportolx'}:</label>
+                                <select id="PRESTA_XML_EXPORT_OLX_CITY" name="PRESTA_XML_EXPORT_OLX_CITY" >
+                                </select>
+                            </div>
+
+                            <div class="form-group col-lg-12">
+                                <label for="PRESTA_XML_EXPORT_OLX_LATITUDE">{l s='Latitude' mod='prestaxmlexportolx'}:</label>
+                                <input type="text" placeholder="latitude" id="PRESTA_XML_EXPORT_OLX_LATITUDE" name="PRESTA_XML_EXPORT_OLX_LATITUDE" value="{$PRESTA_XML_EXPORT_OLX_LATITUDE}" />
+                            </div>
+
+                            <div class="form-group col-lg-12">
+                                <label for="PRESTA_XML_EXPORT_OLX_LONGITUDE">{l s='Longitude' mod='prestaxmlexportolx'}:</label>
+                                <input type="text" placeholder="longitude" id="PRESTA_XML_EXPORT_OLX_LONGITUDE" name="PRESTA_XML_EXPORT_OLX_LONGITUDE" value="{$PRESTA_XML_EXPORT_OLX_LONGITUDE}" />
+                            </div>
+
+                            <div class="form-group col-lg-12">
+                                <label for="PRESTA_XML_EXPORT_OLX_ZOOM">{l s='Zoom' mod='prestaxmlexportolx'}:</label>
+                                <input type="text" placeholder="zoom" id="PRESTA_XML_EXPORT_OLX_ZOOM" name="PRESTA_XML_EXPORT_OLX_ZOOM" value="{$PRESTA_XML_EXPORT_OLX_ZOOM}" />
+                            </div>
+
+                            <div class="form-group col-lg-12 ">
+                                <div class="submit">
+                                    <button type="submit" name="submitPrestaxmlexportolxModule" class="btn btn-default pull-right"><i class="process-icon-save"></i><span> {l s='Save' mod='prestaxmlexportolx'}</span></button>
+                                </div>
+                            </div>
+
+						</fieldset>
+
+					</form>
+
+				</div>
 			</div>
 		</div>
 	</div>
+
+    <script type="application/javascript">
+        $(document).ready(function() {
+
+            loadCities('{$PRESTA_XML_EXPORT_OLX_REGION}', '{$PRESTA_XML_EXPORT_OLX_CITY}');
+
+            $('#PRESTA_XML_EXPORT_OLX_REGION').on('change', function() {
+                var regionId = $(this).find("option:selected" ).val();
+                loadCities(regionId);
+            });
+
+            $('#PRESTA_XML_EXPORT_OLX_CITY').on('change', function() {
+                var cityData = $(this).find("option:selected" );
+
+                $('#PRESTA_XML_EXPORT_OLX_LATITUDE').val(cityData.data('latitude'));
+                $('#PRESTA_XML_EXPORT_OLX_LONGITUDE').val(cityData.data('longitude'));
+                $('#PRESTA_XML_EXPORT_OLX_ZOOM').val(cityData.data('zoom'));
+            });
+
+        });
+
+        function loadCities(regionId, cityId) {
+            $.ajax({
+                type: 'POST',
+                headers: { "cache-control": "no-cache" },
+                url: '{$module_dir}classes/ConfigCity.php',
+                async: true,
+                cache: false,
+                dataType : "json",
+                data: 'region_id=' + regionId,
+                success: function(data)
+                {
+                    var city = $('#PRESTA_XML_EXPORT_OLX_CITY');
+                    city[0].options.length = 0;
+
+                    for (var i=0; i<data.length; i++) {
+                        var selected = (data[i].id == cityId) ? "selected=\"selected\"" : "";
+                        city.append('<option value="' + data[i].id + '" data-latitude="' + data[i].latitude + '" data-longitude="' + data[i].longitude + '" data-zoom="' + data[i].zoom + '" data-districts_city_id="' + data[i].districts_city_id + '" ' + selected + '>' + data[i].text + '</option>');
+                    }
+                },
+                error: function()
+                {
+                    alert("{l s='Error reading city data' mod='prestaxmlexportolx'}");
+                }
+            });
+        }
+    </script>
+
 </div>
