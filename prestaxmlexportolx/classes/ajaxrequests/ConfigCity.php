@@ -1,6 +1,6 @@
 <?php
 
-require 'OlxStartUpConfigs.php';
+require '../OlxStartUpConfigs.php';
 
 function getCities($regionId) {
     return json_encode(OlxStartConfigs::getRegionCyties($regionId));

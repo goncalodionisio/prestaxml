@@ -114,7 +114,7 @@
             $.ajax({
                 type: 'POST',
                 headers: { "cache-control": "no-cache" },
-                url: '{$module_dir}classes/ConfigCity.php',
+                url: '{$module_dir}classes/ajaxrequests/ConfigCity.php',
                 async: true,
                 cache: false,
                 dataType : "json",
