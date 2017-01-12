@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+	<name>ptmarketplace</name>
+	<displayName><![CDATA[Presta XML to OLX]]></displayName>
+	<version><![CDATA[1.0.0]]></version>
+	<description><![CDATA[Module to generates products xml files to import for olx ads]]></description>
+	<author><![CDATA[Majoinfa, lda]]></author>
+	<tab><![CDATA[export]]></tab>
+	<is_configurable>1</is_configurable>
+	<need_instance>1</need_instance>
+</module>
