@@ -40,7 +40,10 @@ class OlxStartConfigs
     public static function getRegionCyties($regionId) {
         $arr = array();
 
-        foreach (OlxStartConfigs::getAllCities() as &$region) {
+		// Cannot create references to elements of a temporary array expression workarround
+        $cities = OlxStartConfigs::getAllCities();
+
+        foreach ($cities as &$region) {
             if ($region['region_id'] == $regionId) {
                 $arr[] = $region;
             }
