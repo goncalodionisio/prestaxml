@@ -210,13 +210,27 @@ class Ptmarketplace extends Module
         }
     }
 
+
+    /**
+     *
+     */
+    public function hookBackOfficeHeader()
+    {
+        $controller = pSQL(Tools::getValue('controller'));
+        $controller_uri = pSQL(Tools::getValue('controllerUri'));
+
+        if (($controller == 'AdminProducts' && $controller_uri == 'AdminProducts'))
+        {
+            $this->processProduct();
+
+        }
+    }
+
     /**
      * @return mixed
      */
     public function hookDisplayAdminProductsExtra()
     {
-
-        $this->processProduct();
 
         $default_language = Configuration::get('PS_LANG_DEFAULT');
         $default_shop_id = Configuration::get('PS_SHOP_DEFAULT');
