@@ -30,11 +30,12 @@ class OlxBuildProductXml
      * @param $data
      */
     public static function advertInfo($adverts, $data) {
+
         $advert = $adverts->addChild('advert');
 
         $advert->addChild('category_id', $data['category_id']);
-        $advert->addChild('title', htmlspecialchars($data['title'], ENT_XML1, 'UTF-8'));
-        $advert->addChild('description', htmlspecialchars($data['description'], ENT_XML1, 'UTF-8'));
+        $advert->addChild('title',htmlspecialchars($data['title'], ENT_QUOTES | ENT_XML1, 'ISO-8859-1'));
+        $advert->addChild('description', htmlspecialchars($data['description'], ENT_QUOTES | ENT_XML1, 'ISO-8859-1'));
         $advert->addChild('external_id', $data['external_id']);
         $advert->addChild('region_id', $data['region_id']);
         $advert->addChild('city_id', $data['city_id']);
@@ -47,7 +48,7 @@ class OlxBuildProductXml
         $advert->addChild('advertiser_type', $data['advertiser_type']);
 
         $contact = $advert->addChild('contact');
-        $contact->addChild('person', htmlspecialchars($data['person'], ENT_XML1, 'UTF-8'));
+        $contact->addChild('person', htmlspecialchars($data['person'], ENT_QUOTES | ENT_XML1, 'ISO-8859-1'));
         $contact->addChild('phone_numbers', $data['phone_numbers']);
 
         $images = $advert->addChild('images');
