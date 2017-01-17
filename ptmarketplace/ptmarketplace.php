@@ -178,7 +178,7 @@ class Ptmarketplace extends Module
     }
 
     /**
-     *
+     * Gera ficheiro
      */
     public function processProduct()
     {
@@ -210,9 +210,8 @@ class Ptmarketplace extends Module
         }
     }
 
-
     /**
-     *
+     *  Apanha header requests
      */
     public function hookBackOfficeHeader()
     {
