@@ -40,7 +40,6 @@
                         <div class="form-group col-lg-12">
                             <label>{l s='Region/City' mod='ptmarketplace'}:</label>
                             <div id="PTMARKETPLACE_OLX_CITY_LABEL"></div>
-                            <div id="PTMARKETPLACE_OLX_CITY_ALERT"></div>
                         </div>
 
                         <div class="form-group col-lg-12">
@@ -82,9 +81,25 @@
                         <div class="form-group col-lg-12">
                             <label>{l s='Images' mod='ptmarketplace'} ({count($PTMARKETPLACE_OLX_IMAGES)}):</label>
                             {foreach from=$PTMARKETPLACE_OLX_IMAGES item=image key=imagenr}
+
                                 <p style="padding: 1px; border-bottom: 1px solid #cccccc">
-                                    <a href="{$image}" target="_blank">{$imagenr+1} - {basename($image)}</a>
+                                    <a href="#" type="button" data-toggle="modal" data-target="#myModal{$imagenr+1}">
+                                        {$imagenr+1} - {basename($image)}
+                                    </a>
                                 </p>
+                                <!-- Modal -->
+                                <div class="modal fade" id="myModal{$imagenr+1}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <img src="{$image}" >
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             {/foreach}
                         </div>
 
@@ -166,12 +181,11 @@
         $(document).ready(function () {
 
             // Check inputs on load
-            var fields = ["PTMARKETPLACE_OLX_CITY", "PTMARKETPLACE_OLX_REGION", "PTMARKETPLACE_OLX_LATITUDE",
+            var fields = ["PTMARKETPLACE_OLX_LATITUDE",
                 "PTMARKETPLACE_OLX_LONGITUDE", "PTMARKETPLACE_OLX_ZOOM", "PTMARKETPLACE_OLX_PERSON",
                 "PTMARKETPLACE_OLX_PHONE", "PTMARKETPLACE_OLX_ADV_TYPE", "PTMARKETPLACE_OLX_PRODUCT_TYPE",
                 "PTMARKETPLACE_OLX_TITLE", "PTMARKETPLACE_OLX_PRICE"];
-            var alerts = ["PTMARKETPLACE_OLX_CITY_ALERT", "PTMARKETPLACE_OLX_REGION_ALERT",
-                "PTMARKETPLACE_OLX_LATITUDE_ALERT", "PTMARKETPLACE_OLX_LONGITUDE_ALERT", "PTMARKETPLACE_OLX_ZOOM_ALERT",
+            var alerts = ["PTMARKETPLACE_OLX_LATITUDE_ALERT", "PTMARKETPLACE_OLX_LONGITUDE_ALERT", "PTMARKETPLACE_OLX_ZOOM_ALERT",
                 "PTMARKETPLACE_OLX_PERSON_ALERT", "PTMARKETPLACE_OLX_PHONE_ALERT", "PTMARKETPLACE_OLX_ADV_TYPE_ALERT",
                 "PTMARKETPLACE_OLX_PRODUCT_TYPE_ALERT", "PTMARKETPLACE_OLX_TITLE_ALERT", "PTMARKETPLACE_OLX_PRICE_ALERT"];
 

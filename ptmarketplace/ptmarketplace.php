@@ -216,13 +216,7 @@ class Ptmarketplace extends Module
             && !empty($_POST['PTMARKETPLACE_OLX_PRICE'])
         ) {
 
-            $description_length = strlen($_POST['PTMARKETPLACE_OLX_DESCRIPTION']);
-            if ((int)$description_length > 4096):
-                return false;
-            endif;
-
             $data = $this->getSingleproduct();
-
 
             $olx = new OlxBuildProductXml();
             $file = date('Y-m-d') . '_' . $data["title"] . '.xml';
@@ -294,9 +288,19 @@ class Ptmarketplace extends Module
 
             }
 
+            if(empty($product->description)):
+
+                $description = $product->description_short;
+
+            else:
+
+                $description = $product->description;
+
+            endif;
+
             $this->context->smarty->assign('PTMARKETPLACE_OLX_EXTERNAL_ID', $product->reference);
             $this->context->smarty->assign('PTMARKETPLACE_OLX_TITLE', $product->name);
-            $this->context->smarty->assign('PTMARKETPLACE_OLX_DESCRIPTION', $product->description);
+            $this->context->smarty->assign('PTMARKETPLACE_OLX_DESCRIPTION', $description);
             $this->context->smarty->assign('PTMARKETPLACE_OLX_PRICE', $product->price);
             $this->context->smarty->assign('PTMARKETPLACE_OLX_IMAGES', $imagesPath);
 
