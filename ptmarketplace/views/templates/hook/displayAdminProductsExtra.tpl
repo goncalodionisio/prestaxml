@@ -81,11 +81,11 @@
 
                         <div class="form-group col-lg-12">
                             <label>{l s='Images' mod='ptmarketplace'} ({count($PTMARKETPLACE_OLX_IMAGES)}):</label>
-                            <p>
                             {foreach from=$PTMARKETPLACE_OLX_IMAGES item=image key=imagenr}
-                                <small><a href="{$image}" target="_blank">{$imagenr+1} - {basename($image)}</a></small><br>
+                                <p style="padding: 1px; border-bottom: 1px solid #cccccc">
+                                    <a href="{$image}" target="_blank">{$imagenr+1} - {basename($image)}</a>
+                                </p>
                             {/foreach}
-                            </p>
                         </div>
 
                         <div class="form-group col-lg-12">

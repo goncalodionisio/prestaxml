@@ -293,7 +293,6 @@ class Ptmarketplace extends Module
                 $imagesPath[] = $image ? 'http://'.$link->getImageLink($product->link_rewrite, $image['id_image'], 'medium_default') : false;
 
             }
-            var_dump($imagesPath);
 
             $this->context->smarty->assign('PTMARKETPLACE_OLX_EXTERNAL_ID', $product->reference);
             $this->context->smarty->assign('PTMARKETPLACE_OLX_TITLE', $product->name);
