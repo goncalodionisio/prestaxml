@@ -284,7 +284,7 @@ class Ptmarketplace extends Module
 			SELECT i.`id_image` as id_image
             FROM `'._DB_PREFIX_.'image` i
             WHERE i.`id_product` = '.(int)$id_product.'
-            ORDER BY i.`position`');
+            ORDER BY i.`position` LIMIT 0,8');
 
             $link = new LinkCore();
 
@@ -293,6 +293,7 @@ class Ptmarketplace extends Module
                 $imagesPath[] = $image ? 'http://'.$link->getImageLink($product->link_rewrite, $image['id_image'], 'medium_default') : false;
 
             }
+            var_dump($imagesPath);
 
             $this->context->smarty->assign('PTMARKETPLACE_OLX_EXTERNAL_ID', $product->reference);
             $this->context->smarty->assign('PTMARKETPLACE_OLX_TITLE', $product->name);
