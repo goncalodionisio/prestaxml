@@ -70,6 +70,33 @@ class Ptmarketplace extends Module
     }
 
 
+    public function uninstall()
+    {
+        if (!parent::uninstall()) {
+            return false;
+        }
+
+        // Delete configuration values
+        $this->deleteByName();
+        return true;
+    }
+
+
+    /**
+     * Delete module setting from DB
+     */
+    public static function deleteByName()
+    {
+        Configuration::deleteByName('PTMARKETPLACE_OLX_REGION');
+        Configuration::deleteByName('PTMARKETPLACE_OLX_CITY');
+        Configuration::deleteByName('PTMARKETPLACE_OLX_LATITUDE');
+        Configuration::deleteByName('PTMARKETPLACE_OLX_LONGITUDE');
+        Configuration::deleteByName('PTMARKETPLACE_OLX_ZOOM');
+        Configuration::deleteByName('PTMARKETPLACE_OLX_PERSON');
+        Configuration::deleteByName('PTMARKETPLACE_OLX_PHONE');
+        Configuration::deleteByName('PTMARKETPLACE_OLX_ADV_TYPE');
+    }
+
     /**
      * Load the configuration form
      */
@@ -170,6 +197,7 @@ class Ptmarketplace extends Module
             'person' => Tools::getValue('PTMARKETPLACE_OLX_PERSON'),
             'phone_numbers' => Tools::getValue('PTMARKETPLACE_OLX_PHONE'),
             'advertiser_type' => Tools::getValue('PTMARKETPLACE_OLX_ADV_TYPE'),
+            'images' => Tools::getValue('PTMARKETPLACE_OLX_IMAGES'),
             'price' => array(
                 "type" => "price", "value" => Tools::getValue('PTMARKETPLACE_OLX_PRICE'),
             )
@@ -188,7 +216,13 @@ class Ptmarketplace extends Module
             && !empty($_POST['PTMARKETPLACE_OLX_PRICE'])
         ) {
 
+            $description_length = strlen($_POST['PTMARKETPLACE_OLX_DESCRIPTION']);
+            if ((int)$description_length > 4096):
+                return false;
+            endif;
+
             $data = $this->getSingleproduct();
+
 
             $olx = new OlxBuildProductXml();
             $file = date('Y-m-d') . '_' . $data["title"] . '.xml';
@@ -246,10 +280,25 @@ class Ptmarketplace extends Module
         )
         ) {
 
+            $product_images = Db::getInstance(_PS_USE_SQL_SLAVE_)->executeS('
+			SELECT i.`id_image` as id_image
+            FROM `'._DB_PREFIX_.'image` i
+            WHERE i.`id_product` = '.(int)$id_product.'
+            ORDER BY i.`position`');
+
+            $link = new LinkCore();
+
+            foreach ($product_images as $image){
+
+                $imagesPath[] = $image ? 'http://'.$link->getImageLink($product->link_rewrite, $image['id_image'], 'medium_default') : false;
+
+            }
+
             $this->context->smarty->assign('PTMARKETPLACE_OLX_EXTERNAL_ID', $product->reference);
-            $this->context->smarty->assign('PTMARKETPLACE_OLX_TITLE', $product->reference);
+            $this->context->smarty->assign('PTMARKETPLACE_OLX_TITLE', $product->name);
             $this->context->smarty->assign('PTMARKETPLACE_OLX_DESCRIPTION', $product->description);
             $this->context->smarty->assign('PTMARKETPLACE_OLX_PRICE', $product->price);
+            $this->context->smarty->assign('PTMARKETPLACE_OLX_IMAGES', $imagesPath);
 
             $this->assignConfiguration();
 
