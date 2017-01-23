@@ -284,7 +284,7 @@ class Ptmarketplace extends Module
 
             foreach ($product_images as $image){
 
-                $imagesPath[] = $image ? 'http://'.$link->getImageLink($product->link_rewrite, $image['id_image'], 'medium_default') : false;
+                $imagesPath[] = $image ? 'http://'.$link->getImageLink($product->link_rewrite, $image['id_image'], 'large_default') : false;
 
             }
 
