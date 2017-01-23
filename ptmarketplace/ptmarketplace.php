@@ -205,6 +205,27 @@ class Ptmarketplace extends Module
 
     }
 
+
+    public function getProductImages($product) {
+
+        $imagesPath = array();
+        $product_images = Db::getInstance(_PS_USE_SQL_SLAVE_)->executeS('
+			SELECT i.`id_image` as id_image
+            FROM `'._DB_PREFIX_.'image` i
+            WHERE i.`id_product` = '.(int)$product->id.'
+            ORDER BY i.`position` LIMIT 0,8');
+
+        $link = new LinkCore();
+
+        foreach ($product_images as $image){
+
+            $imagesPath[] = $image ? 'http://'.$link->getImageLink($product->link_rewrite, $image['id_image'], 'large_default') : false;
+
+        }
+
+        return  $imagesPath;
+    }
+
     /**
      * Gera ficheiro
      */
@@ -274,19 +295,7 @@ class Ptmarketplace extends Module
         )
         ) {
 
-            $product_images = Db::getInstance(_PS_USE_SQL_SLAVE_)->executeS('
-			SELECT i.`id_image` as id_image
-            FROM `'._DB_PREFIX_.'image` i
-            WHERE i.`id_product` = '.(int)$id_product.'
-            ORDER BY i.`position` LIMIT 0,8');
-
-            $link = new LinkCore();
-
-            foreach ($product_images as $image){
-
-                $imagesPath[] = $image ? 'http://'.$link->getImageLink($product->link_rewrite, $image['id_image'], 'large_default') : false;
-
-            }
+            $imagesPath = $this->getProductImages($product);
 
             if(empty($product->description)):
 
