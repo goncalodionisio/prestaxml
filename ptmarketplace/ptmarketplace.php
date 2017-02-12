@@ -184,10 +184,21 @@ class Ptmarketplace extends Module
      */
     public function getSingleproduct()
     {
+
+        $DESCRIPTION = Tools::getValue('PTMARKETPLACE_OLX_DESCRIPTION');
+
+        $PTMARKETPLACE_OLX_REFERENCE = Tools::getValue('PTMARKETPLACE_OLX_REFERENCE');
+        $PTMARKETPLACE_OLX_DESCRIPTION_SHORT = Tools::getValue('PTMARKETPLACE_OLX_DESCRIPTION_SHORT');
+        $PTMARKETPLACE_OLX_DESCRIPTION_LONG = Tools::getValue('PTMARKETPLACE_OLX_DESCRIPTION_LONG');
+
+        $DESCRIPTION = str_replace("[reference_code]",$PTMARKETPLACE_OLX_REFERENCE,$DESCRIPTION);
+        $DESCRIPTION = str_replace("[description_short]",$PTMARKETPLACE_OLX_DESCRIPTION_SHORT,$DESCRIPTION);
+        $DESCRIPTION = str_replace("[description]",$PTMARKETPLACE_OLX_DESCRIPTION_LONG,$DESCRIPTION);
+
         return array(
             'category_id' => Tools::getValue('PTMARKETPLACE_OLX_PRODUCT_TYPE'),
             'title' => Tools::getValue('PTMARKETPLACE_OLX_TITLE'),
-            'description' => Tools::getValue('PTMARKETPLACE_OLX_DESCRIPTION'),
+            'description' => (string)$DESCRIPTION,
             'external_id' => Tools::getValue('PTMARKETPLACE_OLX_EXTERNAL_ID'),
             'region_id' => Tools::getValue('PTMARKETPLACE_OLX_REGION'),
             'city_id' => Tools::getValue('PTMARKETPLACE_OLX_CITY'),
@@ -280,12 +291,12 @@ class Ptmarketplace extends Module
     public function hookDisplayAdminProductsExtra()
     {
 
-        $default_language = Configuration::get('PS_LANG_DEFAULT');
-        $default_shop_id = Configuration::get('PS_SHOP_DEFAULT');
+        $default_language = ConfigurationCore::get('PS_LANG_DEFAULT');
+        $default_shop_id = ConfigurationCore::get('PS_SHOP_DEFAULT');
         $id_product = (int)Tools::getValue('id_product');
 
-        if (Validate::isLoadedObject(
-            $product = new Product(
+        if (ValidateCore::isLoadedObject(
+            $product = new ProductCore(
                 $id_product,
                 false,
                 $default_language,
@@ -297,19 +308,14 @@ class Ptmarketplace extends Module
 
             $imagesPath = $this->getProductImages($product);
 
-            if(empty($product->description)):
-
-                $description = $product->description_short;
-
-            else:
-
-                $description = $product->description;
-
-            endif;
-
             $this->context->smarty->assign('PTMARKETPLACE_OLX_EXTERNAL_ID', $product->reference);
             $this->context->smarty->assign('PTMARKETPLACE_OLX_TITLE', $product->name);
-            $this->context->smarty->assign('PTMARKETPLACE_OLX_DESCRIPTION', $description);
+            $this->context->smarty->assign('PTMARKETPLACE_OLX_REFERENCE', $product->reference);
+            $this->context->smarty->assign('PTMARKETPLACE_OLX_DESCRIPTION_LONG', $product->description);
+            $this->context->smarty->assign('PTMARKETPLACE_OLX_DESCRIPTION_SHORT', $product->description_short);
+            $this->context->smarty->assign('PTMARKETPLACE_OLX_REFERENCE_COUNT', strlen($product->reference));
+            $this->context->smarty->assign('PTMARKETPLACE_OLX_DESCRIPTION_LONG_COUNT', strlen($product->description));
+            $this->context->smarty->assign('PTMARKETPLACE_OLX_DESCRIPTION_SHORT_COUNT', strlen($product->description_short));
             $this->context->smarty->assign('PTMARKETPLACE_OLX_PRICE', $product->price);
             $this->context->smarty->assign('PTMARKETPLACE_OLX_IMAGES', $imagesPath);
 

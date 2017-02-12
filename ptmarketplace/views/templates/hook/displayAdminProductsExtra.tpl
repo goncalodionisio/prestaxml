@@ -33,51 +33,73 @@
     <div class="moduleconfig-content">
         <div class="row">
             <div class="col-lg-12">
-                <div class="col-lg-4">
-                    <fieldset>
-                        <legend>{l s='Create XML' mod='ptmarketplace'}:</legend>
-
+                <div class="row">
+                    <div class="col-lg-6">
+                        <fieldset>
+                            <legend>{l s='Create XML' mod='ptmarketplace'}:</legend>
+                        </fieldset>
                         <div class="form-group col-lg-12">
                             <label>{l s='Region/City' mod='ptmarketplace'}:</label>
                             <div id="PTMARKETPLACE_OLX_CITY_LABEL"></div>
                         </div>
-
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
                         <div class="form-group col-lg-12">
                             <label>{l s='Latitude' mod='ptmarketplace'}:</label>
                             <div id="PTMARKETPLACE_OLX_LATITUDE_LABEL">{$PTMARKETPLACE_OLX_LATITUDE}</div>
                             <div id="PTMARKETPLACE_OLX_LATITUDE_ALERT"></div>
                         </div>
-
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
                         <div class="form-group col-lg-12">
                             <label>{l s='Longitude' mod='ptmarketplace'}:</label>
                             <div id="PTMARKETPLACE_OLX_LONGITUDE_LABEL">{$PTMARKETPLACE_OLX_LONGITUDE}</div>
                             <div id="PTMARKETPLACE_OLX_LONGITUDE_ALERT"></div>
                         </div>
-
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
                         <div class="form-group col-lg-12">
                             <label>{l s='Zoom' mod='ptmarketplace'}:</label>
                             <div id="PTMARKETPLACE_OLX_ZOOM_LABEL">{$PTMARKETPLACE_OLX_ZOOM}</div>
                             <div id="PTMARKETPLACE_OLX_ZOOM_ALERT"></div>
                         </div>
-
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
                         <div class="form-group col-lg-12">
                             <label>{l s='Name' mod='ptmarketplace'}:</label>
                             <div id="PTMARKETPLACE_OLX_PERSON_LABEL">{$PTMARKETPLACE_OLX_PERSON}</div>
                             <div id="PTMARKETPLACE_OLX_PERSON_ALERT"></div>
                         </div>
-
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
                         <div class="form-group col-lg-12">
                             <label>{l s='Telephone' mod='ptmarketplace'}:</label>
                             <div id="PTMARKETPLACE_OLX_PHONE_LABEL">{$PTMARKETPLACE_OLX_PHONE}</div>
                             <div id="PTMARKETPLACE_OLX_PHONE_ALERT"></div>
                         </div>
-
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
                         <div class="form-group col-lg-12">
                             <label>{l s='Advertiser Type' mod='ptmarketplace'}:</label>
                             <div id="PTMARKETPLACE_OLX_ADV_TYPE_LABEL">{$PTMARKETPLACE_OLX_ADV_TYPE}</div>
                             <div id="PTMARKETPLACE_OLX_ADV_TYPE_ALERT"></div>
                         </div>
-
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
                         <div class="form-group col-lg-12">
                             <label>{l s='Images' mod='ptmarketplace'} ({count($PTMARKETPLACE_OLX_IMAGES)}):</label>
                             {foreach from=$PTMARKETPLACE_OLX_IMAGES item=image key=imagenr}
@@ -102,7 +124,10 @@
                                 </div>
                             {/foreach}
                         </div>
-
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
                         <div class="form-group col-lg-12">
                             <label for="PTMARKETPLACE_OLX_PRODUCT_TYPE">*{l s='Product category' mod='ptmarketplace'}
                                 :</label>
@@ -115,7 +140,10 @@
                             </select>
                             <div style="float: right" id="PTMARKETPLACE_OLX_PRODUCT_TYPE_ALERT"></div>
                         </div>
-
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
                         <div class="form-group col-lg-12">
                             <label for="PTMARKETPLACE_OLX_TITLE">*{l s='Title' mod='ptmarketplace'}:</label>
                             <input class="required-input" type="text" id="PTMARKETPLACE_OLX_TITLE"
@@ -123,7 +151,10 @@
                                    value="{$PTMARKETPLACE_OLX_TITLE}"/>
                             <div style="float: right" id="PTMARKETPLACE_OLX_TITLE_ALERT"></div>
                         </div>
-
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
                         <div class="form-group col-lg-12">
                             <label for="PTMARKETPLACE_OLX_PRICE">*{l s='Price' mod='ptmarketplace'}:</label>
                             <input class="required-input" type="text" id="PTMARKETPLACE_OLX_PRICE"
@@ -131,15 +162,40 @@
                                    value="{$PTMARKETPLACE_OLX_PRICE}"/>
                             <div style="float: right" id="PTMARKETPLACE_OLX_PRICE_ALERT"></div>
                         </div>
-
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
                         <div class="form-group col-lg-12">
                             <label for="PTMARKETPLACE_OLX_DESCRIPTION">{l s='Description' mod='ptmarketplace'}
                                 :</label>
                             <textarea class="form-control" rows="8" id="PTMARKETPLACE_OLX_DESCRIPTION"
-                                      name="PTMARKETPLACE_OLX_DESCRIPTION">{$PTMARKETPLACE_OLX_DESCRIPTION|strip_tags:true}</textarea>
+                                      name="PTMARKETPLACE_OLX_DESCRIPTION"></textarea>
                             <div style="float: right" id="PTMARKETPLACE_OLX_DESCRIPTION_ALERT"></div>
                         </div>
-
+                    </div>
+                    <div class="col-lg-6">
+                        <label for="PTMARKETPLACE_OLX_DESCRIPTION">{l s='Shortcut Tags' mod='ptmarketplace'}
+                            :</label>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <span><strong>[reference_code]</strong> - <small> {l s='Copy/Paste to insert Product Reference' mod='ptmarketplace'} ({$PTMARKETPLACE_OLX_REFERENCE_COUNT} {l s='Characters' mod='ptmarketplace'})</small> </span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <span><strong>[description_short]</strong> - <small> {l s='Copy/Paste to insert Product Description Short' mod='ptmarketplace'} ({$PTMARKETPLACE_OLX_DESCRIPTION_SHORT_COUNT} {l s='Characters' mod='ptmarketplace'})</small> </span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <span><strong>[description]</strong> - <small> {l s='Copy/Paste to insert Product Description' mod='ptmarketplace'} ({$PTMARKETPLACE_OLX_DESCRIPTION_LONG_COUNT} {l s='Characters' mod='ptmarketplace'})</small> </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
                         <input type="hidden" id="PTMARKETPLACE_OLX_EXTERNAL_ID" name="PTMARKETPLACE_OLX_EXTERNAL_ID"
                                value="{$PTMARKETPLACE_OLX_EXTERNAL_ID}"/>
                         <input type="hidden" id="PTMARKETPLACE_OLX_CITY" name="PTMARKETPLACE_OLX_CITY"
@@ -158,29 +214,43 @@
                                value="{$PTMARKETPLACE_OLX_PHONE}"/>
                         <input type="hidden" id="PTMARKETPLACE_OLX_ADV_TYPE" name="PTMARKETPLACE_OLX_ADV_TYPE"
                                value="{$PTMARKETPLACE_OLX_ADV_TYPE}"/>
+                        <input type="hidden" id="PTMARKETPLACE_OLX_REFERENCE" name="PTMARKETPLACE_OLX_REFERENCE"
+                               value="{$PTMARKETPLACE_OLX_REFERENCE|strip_tags:true}"/>
+                        <input type="hidden" id="PTMARKETPLACE_OLX_DESCRIPTION_LONG" name="PTMARKETPLACE_OLX_DESCRIPTION_LONG"
+                               value="{$PTMARKETPLACE_OLX_DESCRIPTION_LONG|strip_tags:true}"/>
+                        <input type="hidden" id="PTMARKETPLACE_OLX_DESCRIPTION_SHORT" name="PTMARKETPLACE_OLX_DESCRIPTION_SHORT"
+                               value="{$PTMARKETPLACE_OLX_DESCRIPTION_SHORT|strip_tags:true}"/>
+                        <input type="hidden" id="PTMARKETPLACE_OLX_REFERENCE_COUNT" name="PTMARKETPLACE_OLX_REFERENCE_COUNT"
+                               value="{$PTMARKETPLACE_OLX_REFERENCE_COUNT}"/>
+                        <input type="hidden" id="PTMARKETPLACE_OLX_DESCRIPTION_LONG_COUNT" name="PTMARKETPLACE_OLX_DESCRIPTION_LONG_COUNT"
+                               value="{$PTMARKETPLACE_OLX_DESCRIPTION_LONG_COUNT}"/>
+                        <input type="hidden" id="PTMARKETPLACE_OLX_DESCRIPTION_SHORT_COUNT" name="PTMARKETPLACE_OLX_DESCRIPTION_SHORT_COUNT"
+                               value="{$PTMARKETPLACE_OLX_DESCRIPTION_SHORT_COUNT}"/>
+                        <input type="hidden" id="PTMARKETPLACE_OLX_DESCRIPTION_VALIDATION" name="PTMARKETPLACE_OLX_DESCRIPTION_VALIDATION" />
                         {foreach from=$PTMARKETPLACE_OLX_IMAGES item=image}
                             <input type="hidden" name=PTMARKETPLACE_OLX_IMAGES[] value="{$image}">
                         {/foreach}
                         <div class="form-group col-lg-12 ">
+                            <div class="panel-footer">
                             <div class="submit">
                                 <button onclick="checksubmit()" type="submit" id="submitolxbuildxml"
                                         name="submitolxbuildxml"
                                         class="btn btn-default pull-right">
-                                    <span> {l s='Get' mod='ptmarketplace'}</span> <i class="icon-code"></i>
+                                    <i class="icon-code"></i> <br><br>  {l s='Get XML' mod='ptmarketplace'}
                                 </button>
                             </div>
+                            </div>
                         </div>
-                    </fieldset>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
     <script type="application/javascript">
 
 
         $(document).ready(function () {
-
-
 
             // Check inputs on load
             var fields = ["PTMARKETPLACE_OLX_LATITUDE",
@@ -294,9 +364,36 @@
         var PTMARKETPLACE_OLX_DESCRIPTION_ALERT = document.getElementById("PTMARKETPLACE_OLX_DESCRIPTION_ALERT");
         $(document).on("input", "#PTMARKETPLACE_OLX_DESCRIPTION", function () {
 
+            var count_content = 0;
+            var remove_tag = 0;
+
+            var check_reference = $(this).val().includes('[reference_code]');
+            var check_description = $(this).val().includes('[description]');
+            var check_description_short = $(this).val().includes('[description_short]');
+
+            if(check_reference) {
+
+                count_content += parseInt($("#PTMARKETPLACE_OLX_REFERENCE_COUNT").val());
+                remove_tag += 16;
+            }
+
+            if(check_description) {
+
+                count_content += parseInt($("#PTMARKETPLACE_OLX_DESCRIPTION_LONG_COUNT").val());
+                remove_tag += 13;
+            }
+
+            if(check_description_short) {
+
+                count_content += parseInt($("#PTMARKETPLACE_OLX_DESCRIPTION_SHORT_COUNT").val());
+                remove_tag += 19;
+            }
+
             var limit = 4096;
-            var keyinput = $(this).val().length;
-            var keyleft = limit - keyinput;
+            var keyinput = $(this).val().length - remove_tag;
+            var keyleft = (limit - count_content) - keyinput;
+
+            $("#PTMARKETPLACE_OLX_DESCRIPTION_VALIDATION").val(keyleft);
 
             if (keyleft < 0) {
 
@@ -316,12 +413,12 @@
             var PTMARKETPLACE_OLX_PRODUCT_TYPE_VALIDATION = $("#PTMARKETPLACE_OLX_PRODUCT_TYPE").val().length;
             var PTMARKETPLACE_OLX_TITLE_VALIDATION = $("#PTMARKETPLACE_OLX_TITLE").val().length;
             var PTMARKETPLACE_OLX_PRICE_VALIDATION = $("#PTMARKETPLACE_OLX_PRICE").val().length;
-            var PTMARKETPLACE_OLX_DESCRIPTION_VALIDATION = $("#PTMARKETPLACE_OLX_DESCRIPTION").val().length;
+            var PTMARKETPLACE_OLX_DESCRIPTION_VALIDATION = parseInt($("#PTMARKETPLACE_OLX_DESCRIPTION_VALIDATION").val());
 
             if (PTMARKETPLACE_OLX_PRODUCT_TYPE_VALIDATION === 0 ||
                 PTMARKETPLACE_OLX_TITLE_VALIDATION === 0 ||
                 PTMARKETPLACE_OLX_PRICE_VALIDATION === 0 ||
-                PTMARKETPLACE_OLX_DESCRIPTION_VALIDATION > 4096
+                PTMARKETPLACE_OLX_DESCRIPTION_VALIDATION < 0
             ) {
 
                 event.preventDefault();
@@ -351,5 +448,6 @@
                 }
             });
         }
+
     </script>
 </div>
