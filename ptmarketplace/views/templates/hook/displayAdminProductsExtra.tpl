@@ -25,19 +25,15 @@
 
 <div class="panel">
     <div class="row">
-        <div class="col-xs-7 text-left">
-            <h2>{l s='PT MARKETPLACE' mod='ptmarketplace'}</h2>
+        <div class="col-lg-12 text-left">
+            <h3>{l s='PT MARKETPLACE - XML' mod='ptmarketplace'}</h3>
         </div>
     </div>
-    <hr/>
     <div class="moduleconfig-content">
         <div class="row">
             <div class="col-lg-12">
                 <div class="row">
                     <div class="col-lg-6">
-                        <fieldset>
-                            <legend>{l s='Create XML' mod='ptmarketplace'}:</legend>
-                        </fieldset>
                         <div class="form-group col-lg-12">
                             <label>{l s='Region/City' mod='ptmarketplace'}:</label>
                             <div id="PTMARKETPLACE_OLX_CITY_LABEL"></div>
